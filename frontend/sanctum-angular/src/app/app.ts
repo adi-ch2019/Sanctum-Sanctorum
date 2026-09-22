@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -8,10 +8,10 @@ import { HeroService, Hero } from './services/hero';
   selector: 'app-root',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  templateUrl: './app.html',
+  styleUrl: './app.css'
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   private heroService = inject(HeroService);
 
   heroes = signal<Hero[]>([]);
@@ -33,8 +33,7 @@ export class AppComponent {
     if (!this.newHero.name.trim() || !this.newHero.power.trim()) return;
 
     this.loading.set(true);
-    const request = this.heroService.create(this.newHero) as unknown as Observable<Hero>;
-    request.subscribe({
+    this.heroService.create(this.newHero).subscribe({
       next: () => {
         this.newHero = { name: '', power: '' };
         this.loading.set(false);
