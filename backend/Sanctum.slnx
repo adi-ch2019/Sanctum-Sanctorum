@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="Sanctum.Api/Sanctum.Api.csproj" />
+  <Project Path="Sanctum.Functions/Sanctum.Functions.csproj" />
+  <Project Path="Sanctum.Tests/Sanctum.Tests.csproj" />
+</Solution>
